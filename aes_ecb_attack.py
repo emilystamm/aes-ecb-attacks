@@ -14,7 +14,7 @@ def main():
 	# Display - if True will display intermediate steps
 	Display = True
 	# Walkthru - if True will pause at intermediate steps
-	#	and must hit enter (or any key) to continue
+	#	and must hit enter to continue
 	Walkthru = True
 	# SeeOracle - if True will see all oracle information 
 	#	if False, hides information that attacker would not
@@ -23,7 +23,7 @@ def main():
 	# Timing - if True will slow down computation time to see
 	#	intermediate steps more clearly and give more persepctive
 	#	of time it would really take
-	Timing =  True
+	Timing =  False
 
 	# ----------------------------------
 	# For showcasing recommend: Display = True, 
@@ -47,7 +47,7 @@ def attack(disp,walkthru=False, see_oracle = False, timing = False):
 	# Max length of secret
 	secret_len = 24
 	len_init =  upper - len("data=") 
-	a_list = "a" * len_init # list of a's
+	a_list = 'a' * len_init # list of a's
 
 	known = a_list 
 
@@ -103,8 +103,11 @@ def get_next_byte(a_list, known, upper, disp, walkthru, see_oracle, timing=False
 	D = {}
 	# Cycle through every character and record cipher texts
 	for c in chars:
+	# for c in range(256):
 		print(known, c)
+		# ch = c.to_bytes(1, 'big')
 		curr = known[1:] + c
+		print(known, c)
 		encrypted = oracle(curr, disp, see_oracle, timing)
 		second_block = encrypted[16:upper]
 		D[second_block] = c
